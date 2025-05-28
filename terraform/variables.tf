@@ -231,4 +231,49 @@ variable "lxc_tags" {
   description = "Tags for LXC containers"
   type        = string
   default     = "terraform"
+}
+
+# === Tailscale Configuration ===
+
+variable "tailscale_enabled" {
+  description = "Enable Tailscale setup on VMs and LXCs"
+  type        = bool
+  default     = false
+}
+
+variable "tailscale_auth_key" {
+  description = "Tailscale auth key (create at https://login.tailscale.com/admin/settings/keys)"
+  type        = string
+  sensitive   = true
+  default     = ""
+}
+
+variable "tailscale_hostname_prefix" {
+  description = "Hostname prefix for Tailscale nodes (will be suffixed with VM/LXC number)"
+  type        = string
+  default     = "proxmox"
+}
+
+variable "tailscale_ssh_enabled" {
+  description = "Enable Tailscale SSH (allows SSH access via Tailscale network)"
+  type        = bool
+  default     = true
+}
+
+variable "tailscale_exit_node" {
+  description = "Configure as Tailscale exit node (advertise routes)"
+  type        = bool
+  default     = false
+}
+
+variable "tailscale_tags" {
+  description = "Tailscale ACL tags (comma-separated, e.g., 'tag:server,tag:dev')"
+  type        = string
+  default     = ""
+}
+
+variable "tailscale_subnet_routes" {
+  description = "Subnet routes to advertise (for exit node, e.g., '192.168.1.0/24')"
+  type        = string
+  default     = ""
 } 

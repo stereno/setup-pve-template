@@ -2,13 +2,12 @@
 
 # Nix
 .direnv/
-result
-result-*
+result*
 
 # Terraform
 *.tfstate
 *.tfstate.*
-.terraform/
+*.terraform/
 .terraform.lock.hcl
 *.tfplan
 *.tfvars
@@ -41,3 +40,46 @@ terraform/outputs-active.tf
 # Runtime generated files
 .envrc.backup
 *.log
+
+# Terraform generated files
+terraform/generated/
+terraform/*.auto.tfvars
+
+# Tailscale secrets
+**/tailscale-auth-key*
+**/tailscale.key
+**/*tailscale*.secret
+
+# Proxmox secrets
+proxmox-credentials.json
+*.pem
+*.key
+
+# Cloud-init generated files
+**/user-data*
+**/meta-data*
+
+# OS specific
+.DS_Store
+Thumbs.db
+
+# Editor specific
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# Logs
+*.log
+cloud-init*.log
+tailscale*.log
+
+# Temporary files
+*.tmp
+*.temp
+.terraform.d/
+
+# Project specific
+terraform.tfvars.backup
+terraform.tfvars.example.local

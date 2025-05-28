@@ -15,9 +15,41 @@
 - 🔧 **柔軟な設定**: VM・LXCを個別または組み合わせて使用可能
 - 🏗️ **モジュール化**: 再利用可能なTerraformモジュール構成
 - 🔒 **セキュア**: API Token認証対応
+- 🚀 **Tailscale SSH**: apply直後から即座にSSHアクセス可能
 - 🛠️ **開発環境**: Nix + direnv による一貫した開発環境
 
 ## 🚀 クイックスタート
+
+### 💫 Tailscale SSH対応（推奨）
+
+**terraform apply直後にSSH接続可能！**
+
+```bash
+# 1. リポジトリをクローン
+git clone https://github.com/your-username/your-new-project.git
+cd your-new-project/terraform
+
+# 2. Terraform初期化
+terraform init
+
+# 3. 対話形式で設定入力
+terraform plan
+# ↑ tailscale_enabled = true を入力
+# ↑ tailscale_auth_key = "tskey-auth-xxx" を入力（事前にTailscaleで作成）
+
+# 4. デプロイ実行
+terraform apply
+
+# 5. 即座にSSH接続可能！
+ssh proxmox-vm-1        # VM (デフォルトユーザー)
+ssh root@proxmox-lxc-1  # LXC (rootユーザー)
+```
+
+**必要なもの：**
+- [Tailscaleアカウント](https://tailscale.com)
+- [認証キー](https://login.tailscale.com/admin/settings/keys)（Reusableを推奨）
+
+詳細は [📚 Tailscale SSHガイド](docs/TAILSCALE_GUIDE.md) を参照
 
 ### 方法1: 対話形式で即座に開始（推奨）
 
@@ -176,6 +208,7 @@ make setup
 - 🖥️ [**basic-vm**](terraform/examples/basic-vm/) - 基本的なVM環境
 - 📦 [**basic-lxc**](terraform/examples/basic-lxc/) - 基本的なLXC環境  
 - 🔀 [**mixed-environment**](terraform/examples/mixed-environment/) - VM・LXC混合環境
+- 🚀 [**tailscale-enabled**](terraform/examples/tailscale-enabled/) - Tailscale SSH対応環境
 
 ### 設定ファイル使用方式
 例をコピーして使用：
@@ -193,6 +226,16 @@ terraform apply
 ```
 
 詳細は [対話形式モード使用ガイド](docs/INTERACTIVE_MODE.md) を参照してください。
+
+### Tailscale SSH対応
+```bash
+# Tailscale対応例を使用
+cp terraform/examples/tailscale-enabled/terraform.tfvars terraform/
+# tailscale_auth_keyを設定してから
+terraform apply
+```
+
+詳細は [📚 Tailscale SSHガイド](docs/TAILSCALE_GUIDE.md) を参照してください。
 
 ## 🎛️ Makefileコマンド
 
@@ -255,6 +298,7 @@ cd ../ansible
 
 - 📖 [Template使用ガイド](docs/TEMPLATE_USAGE.md)
 - 🎯 [対話形式モード使用ガイド](docs/INTERACTIVE_MODE.md)
+- 🚀 [Tailscale SSH統合ガイド](docs/TAILSCALE_GUIDE.md)
 - 🏗️ [Proxmox Terraform Provider](https://registry.terraform.io/providers/Telmate/proxmox/latest/docs)
 - 🌐 [Proxmox VE API Documentation](https://pve.proxmox.com/wiki/Proxmox_VE_API)
 - 🏆 [Terraform Best Practices](https://www.terraform.io/docs/cloud/guides/recommended-practices/)
