@@ -1,0 +1,45 @@
+# Proxmox接続設定
+proxmox_api_url      = "https://192.168.1.100:8006/api2/json"
+proxmox_user         = "root@pam"
+proxmox_password     = "your-password-here"
+proxmox_tls_insecure = true
+proxmox_node         = "pve"
+
+# API Token認証を使用する場合（推奨）
+# proxmox_api_token_id     = "root@pam!terraform"
+# proxmox_api_token_secret = "your-api-token-secret-here"
+
+# VM設定
+vm_count         = 2
+vm_name_prefix   = "ubuntu-vm"
+vm_template      = "ubuntu-22.04-cloudinit"  # Proxmoxで作成したテンプレート名
+vm_cores         = 2
+vm_sockets       = 1
+vm_memory        = 2048
+vm_disk_size     = "20G"
+vm_storage       = "local-lvm"
+vm_network_bridge = "vmbr0"
+vm_ip_config     = ""  # DHCPの場合は空、固定IPの場合は "ip=192.168.1.100/24,gw=192.168.1.1"
+vm_user          = "ubuntu"
+vm_password      = "your-vm-password"
+vm_ssh_keys      = "ssh-rsa AAAAB3NzaC1yc2E... your-public-key"
+vm_onboot        = false
+vm_tags          = "terraform,vm"
+
+# LXC設定
+lxc_count          = 1
+lxc_name_prefix    = "ubuntu-lxc"
+lxc_template       = "local:vztmpl/ubuntu-22.04-standard_22.04-1_amd64.tar.zst"
+lxc_unprivileged   = true
+lxc_cores          = 1
+lxc_memory         = 512
+lxc_swap           = 512
+lxc_disk_size      = "8G"
+lxc_storage        = "local-lvm"
+lxc_network_bridge = "vmbr0"
+lxc_ip_config      = ""  # DHCPの場合は空、固定IPの場合は "192.168.1.101/24"
+lxc_password       = "your-lxc-password"
+lxc_ssh_keys       = "ssh-rsa AAAAB3NzaC1yc2E... your-public-key"
+lxc_onboot         = false
+lxc_start          = true
+lxc_tags           = "terraform,lxc" 

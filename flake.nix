@@ -26,17 +26,20 @@
             # Other useful tools
             jq
             yq
+            curl
+            git
+            openssh
           ];
 
           shellHook = ''
-            echo "🚀 Terraform development environment loaded!"
+            echo "🚀 Proxmox Terraform development environment loaded!"
             echo "Available tools:"
             echo "  • terraform $(terraform version --json | jq -r '.terraform_version')"
             echo "  • terragrunt $(terragrunt --version | head -1)"
             echo "  • terraform-docs $(terraform-docs version)"
             echo "  • tflint $(tflint --version | head -1)"
             echo ""
-            echo "Happy Terraforming! 🌍"
+            echo "Happy Terraforming with Proxmox! 🌍"
           '';
 
           # Environment variables

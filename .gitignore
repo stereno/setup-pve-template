@@ -31,3 +31,13 @@ terraform.rc
 # OS
 .DS_Store
 Thumbs.db
+
+# Template Repository specific
+# Files generated during initialization should not be committed to template
+PROJECT_README.md
+terraform/terraform.tfvars
+terraform/outputs-active.tf
+
+# Runtime generated files
+.envrc.backup
+*.log
