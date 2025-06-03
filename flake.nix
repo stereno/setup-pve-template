@@ -6,10 +6,14 @@
     flake-utils.url = "github:numtide/flake-utils";
   };
 
+
   outputs = { self, nixpkgs, flake-utils }:
     flake-utils.lib.eachDefaultSystem (system:
       let
-        pkgs = nixpkgs.legacyPackages.${system};
+        pkgs = import nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+        };
       in
       {
         devShells.default = pkgs.mkShell {
@@ -22,24 +26,16 @@
             terraform-docs
             tflint
             terrascan
-
-            # Other useful tools
-            jq
-            yq
-            curl
-            git
-            openssh
           ];
 
+
           shellHook = ''
-            echo "🚀 Proxmox Terraform development environment loaded!"
-            echo "Available tools:"
-            echo "  • terraform $(terraform version --json | jq -r '.terraform_version')"
-            echo "  • terragrunt $(terragrunt --version | head -1)"
-            echo "  • terraform-docs $(terraform-docs version)"
-            echo "  • tflint $(tflint --version | head -1)"
             echo ""
+            echo ""
+            echo "🚀 Proxmox Terraform development environment loaded!"
             echo "Happy Terraforming with Proxmox! 🌍"
+            echo ""
+            echo ""
           '';
 
           # Environment variables
